@@ -8,6 +8,7 @@
 	-webkit-border-radius: 20px;
 	-moz-border-radius: 20px;
 	border: dotted #57B9DD 3px;
+	background-color: gainsboro;
 }
 
 .input-large{
