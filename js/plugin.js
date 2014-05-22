@@ -6,10 +6,14 @@ var jQuery;
 			minDlugoscImienia: 3
 		}, options);
 
+		var formularzGlobal;
 		var funkcje = {
 			init: function (formularz){
 				
 				var elementyInput = $(formularz).find('input');
+				formularzGlobal = formularz;
+				
+				$($(formularz).find('[id="wyslijBTN"]')).attr('disabled', true);
 				
 				$(elementyInput).keyup(function(){
 					var nazwaPola = $(this).attr('name');	
@@ -57,22 +61,39 @@ var jQuery;
 					funkcje.sukces(pole);
 				}
 			},
+			blokadaGuzika: function(){
+				var elementyInput = $(formularzGlobal).find('input');
+				var formularzWypelnionyPrawidlowo = 1;
+				for (var i = 0; i < elementyInput.length; i++ ){
+					if ($(elementyInput[i]).hasClass('walidacjaNiepoprawna') || elementyInput[i].value === '' ) { 
+						formularzWypelnionyPrawidlowo = 0;
+					}
+				}
+				
+				if( formularzWypelnionyPrawidlowo === 0) {
+					$($(formularzGlobal).find('[id="wyslijBTN"]')).attr('disabled', true);
+				}
+				else {
+					$($(formularzGlobal).find('[id="wyslijBTN"]')).attr('disabled', false);
+				}
+			},
 			blad: function (pole){
 				if($(pole).hasClass('walidacjaPoprawna')) {
 					$(pole).removeClass('walidacjaPoprawna');
 				}
 				$(pole).addClass('walidacjaNiepoprawna');
+				funkcje.blokadaGuzika();
 			},
-			sukces: function( pole ) {
+			sukces: function (pole) {
 				if($(pole).hasClass('walidacjaNiepoprawna')) {
-							$(pole).removeClass('walidacjaNiepoprawna');
+					$(pole).removeClass('walidacjaNiepoprawna');
 				}
 				$(pole).addClass('walidacjaPoprawna');
+				funkcje.blokadaGuzika();
 			}
 		};
 		return this.each(function() {
 			funkcje.init(this);
 		});
 	};
-
 })( jQuery );
