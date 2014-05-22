@@ -3,7 +3,7 @@ var jQuery;
 	$.fn.walidacjaPol = function (options){
 		var ustawienia = $.extend({
 			minDlugoscHasla: 5,
-			minDlugoscImienia: 3
+			minDlugoscImienia: 2
 		}, options);
 
 		var formularzGlobal;
@@ -14,7 +14,7 @@ var jQuery;
 				formularzGlobal = formularz;
 				
 				$($(formularz).find('[id="wyslijBTN"]')).attr('disabled', true);
-				
+
 				$(elementyInput).keyup(function(){
 					var nazwaPola = $(this).attr('name');	
 					switch(nazwaPola){
@@ -26,6 +26,9 @@ var jQuery;
 							break;
 						case 'haslo':
 							funkcje.walidacjaHasla(this);
+							break;
+						case 'kodPocztowy':
+							funkcje.walidacjaKoduPocztowego(this);
 							break;
 					}
 				});
@@ -51,6 +54,56 @@ var jQuery;
 					funkcje.blad(pole);
 				}
 			},
+			walidacjaKoduPocztowego: function(pole){
+				var wzorzecKodPocztowy = /[0-9]{2}-[0-9]{3}/;
+				var kodPocztowy = $(pole).val();
+				var plik;
+				var miasto;
+				var znajdzMiasto = function (plik) {
+					var miasto;
+        	$.ajax({
+            type: "GET",
+            url: plik,
+            dataType: "json",
+            async: false,
+            success: function (data) {
+                miasto = data[kodPocztowy];
+            }
+        	});
+        	return miasto;
+				};
+				var znajdzPlik = function (string) {
+					var plik;
+					var wzorzecPlik1 = /^[0,1,2,3]/;
+					var wzorzecPlik2 = /^[4,5,6]/;
+					var wzorzecPlik3 = /^[7,8,9]/;
+					if(wzorzecPlik1.test(string)) {
+						plik = "1-3kody.json";
+					}
+					else if (wzorzecPlik2.test(string)){
+						plik = "4-6kody.json";
+					}
+					else if (wzorzecPlik3.test(string)){
+						plik = "7-9kody.json"
+					}
+					return plik;
+				};	
+				if (wzorzecKodPocztowy.test(kodPocztowy)) {
+					plik = znajdzPlik(kodPocztowy);
+					miasto = znajdzMiasto(plik);
+					if ( miasto !== undefined || miasto === "" ){
+						funkcje.sukces(pole);
+						$("#miasto").val(miasto);
+					}
+					else {
+						funkcje.blad(pole);
+					}
+				}
+				else {
+					$("#miasto").val("Brak kodu w bazie");
+						funkcje.blad(pole);
+				}
+			},	
 			walidacjaHasla: function (pole){
 				var haslo = $(pole).val();						
 				var wielkieLitery = /[A-Z]/g; // wyszukiwanie wielkich liter w haśle

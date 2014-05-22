@@ -41,6 +41,22 @@
   </div>
 </div>
 
+<!-- Text input-->
+<div class="control-group">
+  <label class="control-label" for="kodPocztowy">Kod pocztowy: </label>
+  <div class="controls">
+    <input id="kodPocztowy" name="kodPocztowy" type="text" class="input-large">
+  </div>
+</div>
+
+
+<div class="control-group">
+  <label class="control-label" for="miasto">Miasto: </label>
+  <div class="controls">
+    <input id="miasto" name="miasto" type="text" class="input-large" disabled>
+  </div>
+</div>
+
 <!-- Button -->
 <div class="control-group">
   <label class="control-label" for="wyslijBTN"></label>
@@ -51,7 +67,6 @@
 
 </fieldset>
 </form>
-
 <script>
 $('#form').walidacjaPol({
 	wzorzecImie: /^[A-ZĄĆĘŁŃÓŚŹŻ][a-ząćęłóńśźż]*$/
