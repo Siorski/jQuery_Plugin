@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<title>Walidacja plugin jQuery</title>
+	
+	<link rel="stylesheet" type="text/css" media="all" href="css/style.css" />
+	<link rel="stylesheet" type="text/css" media="all" href="css/bootstrap.min.css" />
+	<script src="js/jquery-1.11.1.min.js"></script>
+	<script src="js/plugin.js"></script>
+</head>
+<body>
+<form id="form"  >
+<fieldset>
+
+<!-- Form Name -->
+<legend>Formularz</legend>
+
+<!-- Text input-->
+<div class="control-group">
+  <label class="control-label" for="imie">Imię : </label>
+  <div class="controls">
+    <input id="imie" name="imie" type="text" placeholder="Zacznij wielką literą" class="input-large">  
+  </div>
+</div>
+
+<!-- Text input-->
+<div class="control-group">
+  <label class="control-label" for="email">Adres email: </label>
+  <div class="controls">
+    <input id="email" name="email" type="text" placeholder="" class="input-large">
+  </div>
+</div>
+
+<!-- Password input-->
+<div class="control-group">
+  <label class="control-label" for="haslo">Hasło :</label>
+  <div class="controls">
+    <input id="haslo" name="haslo" type="password" placeholder="" class="input-large">
+  </div>
+</div>
+
+<!-- Button -->
+<div class="control-group">
+  <label class="control-label" for="wyslijBTN"></label>
+  <div class="controls">
+    <button id="wyslijBTN" name="wyslijBTN" class="btn btn-primary">Wyślij</button>
+  </div>
+</div>
+
+</fieldset>
+</form>
+
+
+<script>
+$('#form').walidacjaPol({
+	wzorzecImie: /^[A-ZĄĆĘŁŃÓŚŹŻ][a-ząćęłóńśźż]*$/
+});
+</script>
+
+</body>
+</html>

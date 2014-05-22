@@ -1,0 +1,28 @@
+#form{
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 5%;
+	width: 300px;
+	text-align: center;
+	border-radius: 20px;
+	-webkit-border-radius: 20px;
+	-moz-border-radius: 20px;
+	border: dotted #57B9DD 3px;
+}
+
+.input-large{
+	text-align: center;
+	margin: 3px;
+}
+
+#wyslijBTN{
+	margin-bottom: 5px;
+}
+
+.walidacjaPoprawna{
+	border: 2px solid green;
+}
+
+.walidacjaNiepoprawna{
+	border: 2px solid red;
+}
